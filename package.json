@@ -1,0 +1,19 @@
+{
+  "name": "wheres-your-employee",
+  "version": "1.0.0",
+  "description": "Homework",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dgrant-design/Wheres-Your-Employee.git"
+  },
+  "author": "Darwin Grant",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dgrant-design/Wheres-Your-Employee/issues"
+  },
+  "homepage": "https://github.com/dgrant-design/Wheres-Your-Employee#readme"
+}
