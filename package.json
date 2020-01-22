@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/dgrant-design/Wheres-Your-Employee/issues"
   },
-  "homepage": "https://github.com/dgrant-design/Wheres-Your-Employee#readme"
+  "homepage": "https://github.com/dgrant-design/Wheres-Your-Employee#readme",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "inquirer": "^7.0.3",
+    "mysql": "^2.18.0",
+    "node-echo": "^0.1.1"
+  }
 }
