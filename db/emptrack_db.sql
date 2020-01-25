@@ -9,7 +9,12 @@ CREATE TABLE employee
 	first_name varchar(30) NOT NULL,
     last_name varchar(30) NOT NULL,
 	mgr_id INT (30) NULL,
-	PRIMARY KEY (id)
+	PRIMARY KEY (id),
+	CONSTRAINT fk_role_department FOREIGN KEY (department_id)
+           REFERENCES department(department_id)
+           ON UPDATE CASCADE
+           ON DELETE CASCADE,
+
 );
 
 CREATE TABLE role

@@ -2,7 +2,7 @@ const fs = require('fs');
 const mysql = require('mysql');
 const inquirer = require('inquirer');
 const ctable = require('console.table');
-const echo = require('node-echo');
+
 
 const connection = mysql.createConnection({
     host: "localhost",
