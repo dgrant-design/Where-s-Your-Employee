@@ -15,7 +15,7 @@ const connection = mysql.createConnection({
 connection.connect(function (err) {
     if (err) throw err;
     empTrack();
-});
+});0
 
 function empTrack() {
     inquirer
@@ -42,7 +42,7 @@ function empTrack() {
             );
             switch (res.choice) {
                 case "View all employees":
-                    employeeView();
+                    allEmp();
                     break;
 
                 case "View all employees by department":
@@ -76,16 +76,9 @@ function empTrack() {
         })
 };
 
-const employeeView = (inputs = []) => {
-    inquirer
-        .prompt({
-            name: "employeeView",
-            type: "input",
-            message: "Enter Employee last name to begin search"
-        })
-        .then(function (choice) {
-            let query = "SELECT first_name, last_name, id FROM employee WHERE ?";
-            connection.query(query, { last_name: choice.employeeView }, function (err, res
+const allEmp = ( ) => {
+            let query = "SELECT * FROM employee";
+            connection.query(query, {}, function (err, res
             ) {
                 if (err) throw err;
 
@@ -98,7 +91,6 @@ const employeeView = (inputs = []) => {
                 }
             });
             empTrack()
-        });
 }
 const departmentView = (res) => {
     let query = "SELECT dept_name FROM department";
@@ -135,10 +127,11 @@ const employeeAdd = () => {
         .then(function (answer) {
             console.log(answer);
             let name = answer.employeeAdd;
-            let firstAndLastName = name.split(" ");
-            console.log(firstAndLastName);
-            let query = "INSERT INTO employee (first_name, last_name) VALUES ?";
-            connection.query(query, [[firstAndLastName]], function (err, res) {
+            let whole = name.split(" ");
+            const first = whole[0]
+            const last = whole[1]
+            let query = "INSERT INTO employee SET ?";
+            connection.query(query, {first_name: first, last_name: last}, function (err, res) {
                 if (err) throw err;
                 console.log(err);
             });
@@ -163,39 +156,46 @@ const employeeRemove = () => {
                 for (var i = 0; i < res.length; i++) {
                     console.log(res[i].employeeRemove);
                 }
-                empTrack();
             });
+            empTrack();
         });
 }
 const employeeUpdate = () => {
     inquirer
-        .prompt({
-            name: "employeeUpdate",
+        .prompt([{
+            name: "id",
             type: "input",
             message: "Enter employee id",
-        })
-        .then(function (choice) {
-            let id = choice.id;
+        },
+        {
+            name: "field",
+            type: "list",
+            message: "Select a field to update",
+            choices: [
+                "first name",
+                "last name"
+            ]
+        },
+        {
+            name: "name",
+            type: "input",
+            message: "Enter new name"
+        }]).then(function (choice) {
+            console.log(choice)
+                    const id = choice.id
+                    const field = choice.field
+                    const name = choice.name
 
-            inquirer
-                .prompt({
-                    name: "roleId",
-                    type: "input",
-                    message: "Enter role id",
-                })
-                .then(function (choice) {
-                    let empId = choice.empId;
-
-                    let query = "UPDATE employee SET role_id=? WHERE id=?";
-                    connection.query(query, [empId, id], function (err, res) {
+                    let query = "UPDATE employee SET last_name = ? WHERE id = ?";
+                    connection.query(query, [name, id], function (err, res) {
                         if (err) {
                             console.log(err);
                         }
-                        empTrack();
                     });
-                });
+                    empTrack()
         });
 }
+
 const employeeManager = () => {
     inquirer
         .prompt({
@@ -204,14 +204,14 @@ const employeeManager = () => {
             message: "What employee would you like to update the manager for?"
         })
         .then(function () {
-            let query = "SELECT manager_id FROM employee WHERE ?";
+            let query = "SELECT mgr_id FROM employee WHERE ?";
             connection.query(query, function (err, res) {
                 if (err) throw err;
 
                 for (var i = 0; i < res.length; i++) {
                     console.log(res[i].employee);
                 }
-                empTrack();
             });
+            empTrack();
         });
 }

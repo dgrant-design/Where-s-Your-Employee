@@ -8,13 +8,9 @@ CREATE TABLE employee
 	id int NOT NULL AUTO_INCREMENT,
 	first_name varchar(30) NOT NULL,
     last_name varchar(30) NOT NULL,
-	mgr_id INT (30) NULL,
-	PRIMARY KEY (id),
-	CONSTRAINT fk_role_department FOREIGN KEY (department_id)
-           REFERENCES department(department_id)
-           ON UPDATE CASCADE
-           ON DELETE CASCADE,
-
+    role_id int,
+	mgr_id INT (30),
+	PRIMARY KEY (id)
 );
 
 CREATE TABLE role
